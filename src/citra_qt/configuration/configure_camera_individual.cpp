@@ -65,7 +65,7 @@ void ConfigureCameraIndividual::UpdateCameraMode(int camera_mode_index) {
 }
 
 void ConfigureCameraIndividual::OnBrowseImage() {
-    QString file_filter = tr("PNG(*.png)");
+    QString file_filter = tr("PNG (*.png)");
     file_filter += ";;" + tr("All Files (*.*)");
 
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Image File"),
