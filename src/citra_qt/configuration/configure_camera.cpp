@@ -19,8 +19,7 @@ ConfigureCamera::ConfigureCamera(QWidget* parent) : QWidget(parent), ui(new Ui::
 
 ConfigureCamera::~ConfigureCamera() {}
 
-void ConfigureCamera::setConfiguration() {
-}
+void ConfigureCamera::setConfiguration() {}
 
 void ConfigureCamera::applyConfiguration() {
     ui->camera_outer_right->applyConfiguration();
