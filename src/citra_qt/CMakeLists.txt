@@ -9,9 +9,9 @@ add_executable(citra-qt
     aboutdialog.h
     bootmanager.cpp
     bootmanager.h
+    citra-qt.rc
     camera/still_image_camera.cpp
     camera/still_image_camera.h
-    citra-qt.rc
     configuration/config.cpp
     configuration/config.h
     configuration/configure_audio.cpp
