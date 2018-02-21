@@ -57,16 +57,7 @@ struct Values {
 
     uint32_t callout_flags;
 
-    // multiplayer settings
-    QString nickname;
-    QString ip;
-    QString port;
-    QString room_nickname;
-    QString room_name;
-    quint32 max_player;
-    QString room_port;
-    QString host_type;
-    qulonglong game_id;
+    bool show_console;
 };
 
 extern Values values;
