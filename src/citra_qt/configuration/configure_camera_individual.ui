@@ -33,7 +33,18 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="camera_mode_combobox"/>
+         <widget class="QComboBox" name="camera_mode_combobox">
+          <item>
+           <property name="text">
+            <string>blank</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>image</string>
+           </property>
+          </item>
+         </widget>
         </item>
        </layout>
       </item>
