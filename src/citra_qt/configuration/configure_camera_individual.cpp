@@ -5,25 +5,23 @@
 #include <QFileDialog>
 
 #include "citra_qt/configuration/configure_camera_individual.h"
-#include "core/frontend/camera/factory.cpp"
 #include "core/settings.h"
 #include "ui_configure_camera_individual.h"
 
 ConfigureCameraIndividual::ConfigureCameraIndividual(QWidget* parent)
     : QWidget(parent), ui(new Ui::ConfigureCameraIndividual) {
     ui->setupUi(this);
+    ui->camera_mode_combobox->addItem(tr("blank"), "blank");
+    ui->camera_mode_combobox->addItem(tr("image"), "image");
 }
 
 ConfigureCameraIndividual::~ConfigureCameraIndividual() {}
 
 void ConfigureCameraIndividual::setConfiguration() {
-    int camera_mode_index = 0;
-    for (int index = 0; index < ui->camera_mode_combobox->count(); index++) {
-        if (ui->camera_mode_combobox->itemText(index).toStdString() ==
-            Settings::values.camera_name[m_CameraId]) {
-            camera_mode_index = index;
-            break;
-        }
+    int camera_mode_index =
+        ui->camera_mode_combobox->findData(Settings::values.camera_name[m_CameraId].c_str());
+    if (camera_mode_index < 0) {
+        camera_mode_index = 0;
     }
     ui->camera_mode_combobox->setCurrentIndex(camera_mode_index);
     UpdateCameraMode(camera_mode_index);
@@ -33,7 +31,7 @@ void ConfigureCameraIndividual::setConfiguration() {
 
 void ConfigureCameraIndividual::applyConfiguration() {
     Settings::values.camera_name[m_CameraId] =
-        ui->camera_mode_combobox->itemText(ui->camera_mode_combobox->currentIndex()).toStdString();
+        ui->camera_mode_combobox->currentData().toString().toStdString();
     Settings::values.camera_config[m_CameraId] = ui->image_path->text().toStdString();
 
     Settings::Apply();
@@ -43,11 +41,11 @@ void ConfigureCameraIndividual::setCameraId(int cameraId) {
     m_CameraId = cameraId;
     this->setConfiguration();
     connect(ui->camera_mode_combobox,
-            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
-            &ConfigureCameraIndividual::UpdateCameraMode);
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+        &ConfigureCameraIndividual::UpdateCameraMode);
 
     connect(ui->image_browse_button, &QPushButton::clicked, this,
-            &ConfigureCameraIndividual::OnBrowseImage);
+        &ConfigureCameraIndividual::OnBrowseImage);
 }
 
 void ConfigureCameraIndividual::setCameraTitle(QString cameraTitle) {
@@ -58,7 +56,8 @@ void ConfigureCameraIndividual::UpdateCameraMode(int camera_mode_index) {
     if (camera_mode_index == 1) { // 1 = "image"
         ui->image_path->setEnabled(true);
         ui->image_browse_button->setEnabled(true);
-    } else {
+    }
+    else {
         ui->image_path->setEnabled(false);
         ui->image_browse_button->setEnabled(false);
     }
@@ -69,7 +68,7 @@ void ConfigureCameraIndividual::OnBrowseImage() {
     file_filter += ";;" + tr("All Files (*.*)");
 
     QString filename = QFileDialog::getOpenFileName(this, tr("Select Image File"),
-                                                    ui->image_path->text(), file_filter);
+        ui->image_path->text(), file_filter);
     if (!filename.isEmpty()) {
         ui->image_path->setText(filename);
     }
