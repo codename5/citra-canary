@@ -3,7 +3,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/CMakeModules)
 
-add_executable(citra-qt
+add_executable(citra-qt WIN32
     Info.plist
     aboutdialog.cpp
     aboutdialog.h
